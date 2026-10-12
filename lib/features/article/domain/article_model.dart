@@ -15,6 +15,6 @@ final class ArticleModel {
   final String title;
   final String description;
   final ArticleType type;
-  final DataTime publishedAt;
+  final DateTime publishedAt;
 }
 
