@@ -13,7 +13,7 @@ import 'package:pubmed_catalog/features/article/presentation/view/widgets/sectio
 import 'package:pubmed_catalog/features/article/presentation/view/widgets/type_chip.dart';
 import 'package:pubmed_catalog/l10n/app_localizations.dart';
 
-import '../bloc/detail/article_detail_block.dart';
+import '../bloc/detail/article_detail_bloc.dart';
 
 class ArticleDetailScreen extends StatelessWidget {
   const ArticleDetailScreen({super.key, required this.pmid});
