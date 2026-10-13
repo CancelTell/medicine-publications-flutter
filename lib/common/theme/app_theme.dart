@@ -10,6 +10,6 @@ abstract final class AppTheme {
       seedColor: AppColors.seed,
       brightness: brightness,
     ),
-    fontFamily: 'Roboto'
+    fontFamily: 'Nunito'
   );
 }
