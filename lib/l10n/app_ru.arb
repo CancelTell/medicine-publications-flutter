@@ -1,7 +1,82 @@
 {
   "@@locale": "ru",
   "appTitle": "Медицинские публикации",
+  "@appTitle": {
+    "description": "Заголовок в шапке и во вкладке браузера"
+  },
   "actionToggleTheme": "Переключить тему",
   "actionToggleLanguage": "Сменить язык",
-  "languageCode": "RU"
+  "languageCode": "RU",
+  "@languageCode": {
+    "description": "Код текущего языка на кнопке смены языка"
+  },
+  "searchHint": "Название или автор",
+  "actionClearSearch": "Очистить поиск",
+  "listFound": "{count, plural, one{{count} статья} few{{count} статьи} many{{count} статей} other{{count} статьи}}",
+  "@listFound": {
+    "description": "Сколько статей в списке сейчас",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "searchNothingFound": "По запросу «{query}» ничего не найдено",
+  "@searchNothingFound": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "searchNothingFoundHint": "Попробуйте другое слово или очистите поиск",
+  "articleAuthorsShort": "{first} и др.",
+  "@articleAuthorsShort": {
+    "description": "Первый автор в карточке, когда авторов несколько",
+    "placeholders": {
+      "first": {
+        "type": "String"
+      }
+    }
+  },
+  "articlePmid": "PMID {pmid}",
+  "@articlePmid": {
+    "description": "Номер статьи в PubMed. Строка, чтобы число не делилось на разряды",
+    "placeholders": {
+      "pmid": {
+        "type": "String"
+      }
+    }
+  },
+  "articlePublished": "Опубликовано: {date}",
+  "@articlePublished": {
+    "description": "Месяц и год выхода. Формат даты зависит от языка",
+    "placeholders": {
+      "date": {
+        "type": "DateTime",
+        "format": "yMMMM"
+      }
+    }
+  },
+  "sectionDescription": "Описание",
+  "sectionAuthors": "Авторы",
+  "sectionRelated": "Связанные статьи",
+  "relatedEmpty": "Связанных статей в каталоге нет",
+  "detailNotFound": "Статьи с PMID {pmid} в каталоге нет",
+  "@detailNotFound": {
+    "description": "PMID из адресной строки не нашёлся",
+    "placeholders": {
+      "pmid": {
+        "type": "String"
+      }
+    }
+  },
+  "pageNotFound": "Такой страницы нет",
+  "typeResearch": "Исследование",
+  "@typeResearch": {
+    "description": "Тип публикации. В данных он хранится идентификатором, на экран идёт эта подпись"
+  },
+  "typeReview": "Обзор",
+  "typeRandTrial": "Рандомизированное исследование",
+  "typeValidStudy": "Валидационное исследование"
 }
