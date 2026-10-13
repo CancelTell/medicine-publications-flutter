@@ -1,6 +1,5 @@
 import '../domain/article_model.dart';
 import '../domain/article_type.dart';
-
 final List<ArticleModel> mockArticles = [
   ArticleModel(
     pmid: 37952131,
@@ -11,6 +10,7 @@ final List<ArticleModel> mockArticles = [
         'cardiovascular disease, but no diabetes. Weekly semaglutide lowered the '
         'risk of major cardiovascular events compared with placebo.',
     type: ArticleType.randTrial,
+    relatedIds: [33567185, 35658024, 27633186],
     publishedAt: DateTime(2023, 12, 14),
   ),
   ArticleModel(
@@ -21,6 +21,7 @@ final List<ArticleModel> mockArticles = [
     'A phase 3 trial in adults with obesity. Weekly tirzepatide produced '
         'substantial, dose-dependent weight loss over 72 weeks compared with placebo.',
     type: ArticleType.randTrial,
+    relatedIds: [33567185, 37952131],
     publishedAt: DateTime(2022, 7, 21),
   ),
   ArticleModel(
@@ -32,6 +33,7 @@ final List<ArticleModel> mockArticles = [
         'protein from its amino acid sequence, often with accuracy close to '
         'experimental methods.',
     type: ArticleType.research,
+    relatedIds: [30617339],
     publishedAt: DateTime(2021, 8),
   ),
   ArticleModel(
@@ -43,6 +45,7 @@ final List<ArticleModel> mockArticles = [
         'considerably more weight on weekly semaglutide than on placebo, alongside '
         'lifestyle intervention.',
     type: ArticleType.randTrial,
+    relatedIds: [37952131, 35658024],
     publishedAt: DateTime(2021, 3, 18),
   ),
   ArticleModel(
@@ -54,6 +57,7 @@ final List<ArticleModel> mockArticles = [
         'Dexamethasone reduced deaths among patients who needed oxygen or '
         'ventilation, but not among those who did not.',
     type: ArticleType.randTrial,
+    relatedIds: [31986264, 32015507],
     publishedAt: DateTime(2021, 2, 25),
   ),
   ArticleModel(
@@ -65,6 +69,7 @@ final List<ArticleModel> mockArticles = [
         'vaccine was highly effective at preventing symptomatic Covid-19, with a '
         'mostly mild side-effect profile.',
     type: ArticleType.randTrial,
+    relatedIds: [33301246, 32015507],
     publishedAt: DateTime(2021, 2, 4),
   ),
   ArticleModel(
@@ -76,6 +81,7 @@ final List<ArticleModel> mockArticles = [
         'The vaccine gave strong protection against Covid-19 in the weeks after the '
         'second dose.',
     type: ArticleType.randTrial,
+    relatedIds: [33378609, 32015507],
     publishedAt: DateTime(2020, 12, 31),
   ),
   ArticleModel(
@@ -87,6 +93,7 @@ final List<ArticleModel> mockArticles = [
         'close relation to a bat coronavirus, and its use of the ACE2 receptor to '
         'enter human cells.',
     type: ArticleType.research,
+    relatedIds: [31986264, 33301246],
     publishedAt: DateTime(2020, 3),
   ),
   ArticleModel(
@@ -97,6 +104,7 @@ final List<ArticleModel> mockArticles = [
     'An early description of 41 hospitalized patients with confirmed infection: '
         'common symptoms, lung findings, and the share who needed intensive care.',
     type: ArticleType.research,
+    relatedIds: [32015507, 32678530],
     publishedAt: DateTime(2020, 2, 15),
   ),
   ArticleModel(
@@ -108,6 +116,7 @@ final List<ArticleModel> mockArticles = [
         'US. It matched or exceeded the accuracy of radiologists and reduced both '
         'false positives and false negatives.',
     type: ArticleType.research,
+    relatedIds: [30617339, 28117445, 27898976],
     publishedAt: DateTime(2020, 1),
   ),
   ArticleModel(
@@ -119,6 +128,7 @@ final List<ArticleModel> mockArticles = [
         'into a chosen DNA site without cutting both DNA strands and without a '
         'donor DNA template.',
     type: ArticleType.research,
+    relatedIds: [27096365, 25430774],
     publishedAt: DateTime(2019, 12),
   ),
   ArticleModel(
@@ -130,6 +140,7 @@ final List<ArticleModel> mockArticles = [
         'interpretation to clinical decision support, and of the limits and risks '
         'that come with it.',
     type: ArticleType.review,
+    relatedIds: [31894144, 28117445, 27898976],
     publishedAt: DateTime(2019, 1),
   ),
   ArticleModel(
@@ -140,6 +151,7 @@ final List<ArticleModel> mockArticles = [
     'A deep neural network trained on about 130,000 skin images classified '
         'skin lesions with accuracy comparable to board-certified dermatologists.',
     type: ArticleType.research,
+    relatedIds: [30617339, 27898976],
     publishedAt: DateTime(2017, 2, 2),
   ),
   ArticleModel(
@@ -153,6 +165,7 @@ final List<ArticleModel> mockArticles = [
         'retinal photographs and validated on two separate image sets, showing high '
         'sensitivity and specificity.',
     type: ArticleType.validStudy,
+    relatedIds: [30617339, 28117445],
     publishedAt: DateTime(2016, 12, 13),
   ),
   ArticleModel(
@@ -164,6 +177,7 @@ final List<ArticleModel> mockArticles = [
         'cardiovascular risk, semaglutide lowered the rate of major cardiovascular '
         'events compared with placebo.',
     type: ArticleType.randTrial,
+    relatedIds: [27295427, 37952131],
     publishedAt: DateTime(2016, 11, 10),
   ),
   ArticleModel(
@@ -175,6 +189,7 @@ final List<ArticleModel> mockArticles = [
         'patients with type 2 diabetes at high cardiovascular risk, compared with '
         'placebo.',
     type: ArticleType.randTrial,
+    relatedIds: [27633186],
     publishedAt: DateTime(2016, 7, 28),
   ),
   ArticleModel(
@@ -187,6 +202,7 @@ final List<ArticleModel> mockArticles = [
     'Describes base editing, which converts one DNA letter into another at a '
         'chosen position without cutting both strands of the DNA.',
     type: ArticleType.research,
+    relatedIds: [31634902, 25430774],
     publishedAt: DateTime(2016, 5, 19),
   ),
   ArticleModel(
@@ -197,6 +213,7 @@ final List<ArticleModel> mockArticles = [
     'A review of how CRISPR-Cas9 works as a genome-editing tool, where it is '
         'already used in research, and the open questions about its wider use.',
     type: ArticleType.review,
+    relatedIds: [22745249, 23287718],
     publishedAt: DateTime(2014, 11, 28),
   ),
   ArticleModel(
@@ -207,6 +224,7 @@ final List<ArticleModel> mockArticles = [
     'Shows that CRISPR/Cas systems can be engineered to edit genes in human '
         'and mouse cells, including several different sites at the same time.',
     type: ArticleType.research,
+    relatedIds: [22745249, 25430774],
     publishedAt: DateTime(2013, 2, 15),
   ),
   ArticleModel(
@@ -219,6 +237,7 @@ final List<ArticleModel> mockArticles = [
     'Shows that the Cas9 protein can be directed by a guide RNA to cut DNA at '
         'a chosen site, the basis of the CRISPR-Cas9 genome-editing technique.',
     type: ArticleType.research,
+    relatedIds: [23287718, 25430774],
     publishedAt: DateTime(2012, 8, 17),
   ),
 ];
