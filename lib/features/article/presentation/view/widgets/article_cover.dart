@@ -20,7 +20,11 @@ class ArticleCover extends StatelessWidget {
         color: article.accent,
         borderRadius: BorderRadius.circular(size / 5),
       ),
-      child: Icon(article.type.icon, size: size * 0.55, color: AppColors.onType),
+      child: Icon(
+        article.type.icon,
+        size: size * 0.55,
+        color: AppColors.onType,
+      ),
     );
   }
 }

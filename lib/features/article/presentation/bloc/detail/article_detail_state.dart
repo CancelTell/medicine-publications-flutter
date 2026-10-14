@@ -14,6 +14,7 @@ final class ArticleDetailLoaded extends ArticleDetailState {
   final ArticleModel article;
   final List<ArticleModel> related;
 }
+
 final class ArticleDetailNotFound extends ArticleDetailState {
   const ArticleDetailNotFound(this.pmid);
 

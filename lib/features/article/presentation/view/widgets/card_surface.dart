@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class CardSurface extends StatelessWidget{
+class CardSurface extends StatelessWidget {
   const CardSurface({super.key, required this.child, this.onTap});
   final Widget child;
   final VoidCallback? onTap;

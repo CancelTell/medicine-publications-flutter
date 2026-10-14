@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pubmed_catalog/common/theme/theme_cubit.dart';
 import 'package:pubmed_catalog/l10n/app_localizations.dart';
 
-class ThemeToggleButton extends StatelessWidget{
+class ThemeToggleButton extends StatelessWidget {
   const ThemeToggleButton({super.key});
   @override
   Widget build(BuildContext context) {

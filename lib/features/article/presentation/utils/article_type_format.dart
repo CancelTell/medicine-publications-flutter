@@ -10,7 +10,7 @@ extension ArticleTypeFormat on ArticleType {
     ArticleType.randTrial => AppColors.typeRandTrial,
     ArticleType.validStudy => AppColors.typeValidStudy,
   };
-  
+
   IconData get icon => switch (this) {
     ArticleType.research => Icons.science_outlined,
     ArticleType.review => Icons.library_books_outlined,

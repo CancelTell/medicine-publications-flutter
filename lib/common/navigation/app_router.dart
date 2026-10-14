@@ -4,10 +4,12 @@ import 'package:pubmed_catalog/common/widgets/app_scaffold.dart';
 import 'package:pubmed_catalog/features/article/presentation/view/article_detail_screen.dart';
 import 'package:pubmed_catalog/features/article/presentation/view/article_list_screen.dart';
 import 'package:pubmed_catalog/l10n/app_localizations.dart';
+
 abstract final class AppRoutes {
   static const String list = '/';
   static String detail(int pmid) => '/article/$pmid';
 }
+
 abstract final class AppRouter {
   static final GoRouter router = _create();
 

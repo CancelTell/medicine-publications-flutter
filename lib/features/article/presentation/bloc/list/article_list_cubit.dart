@@ -1,5 +1,3 @@
-
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../domain/i_article_repository.dart';
@@ -14,6 +12,7 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     if (isClosed) return;
     emit(ArticleListLoaded(query: '', articles: articles));
   }
+
   Future<void> search(String query) async {
     _latestQuery = query;
     final articles = await _repository.searchArticles(query);

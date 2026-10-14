@@ -24,8 +24,8 @@ class ArticleDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      ArticleDetailBloc(context.read<IArticleRepository>())
-        ..add(ArticleDetailOpened(pmid)),
+          ArticleDetailBloc(context.read<IArticleRepository>())
+            ..add(ArticleDetailOpened(pmid)),
       child: AppScaffold(
         body: BlocBuilder<ArticleDetailBloc, ArticleDetailState>(
           builder: (context, state) => switch (state) {
@@ -38,7 +38,7 @@ class ArticleDetailScreen extends StatelessWidget {
               ),
             ),
             ArticleDetailLoaded(:final article, :final related) =>
-                _DetailContent(article: article, related: related),
+              _DetailContent(article: article, related: related),
           },
         ),
       ),

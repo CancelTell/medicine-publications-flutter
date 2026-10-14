@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:pubmed_catalog/common/theme/app_colors.dart';
 
-
 abstract final class AppTheme {
   static ThemeData get light => _build(Brightness.light);
   static ThemeData get dark => _build(Brightness.dark);
@@ -10,6 +9,6 @@ abstract final class AppTheme {
       seedColor: AppColors.seed,
       brightness: brightness,
     ),
-    fontFamily: 'Nunito'
+    fontFamily: 'Nunito',
   );
 }

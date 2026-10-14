@@ -12,9 +12,9 @@ class ArticleDetailBloc extends Bloc<ArticleDetailEvent, ArticleDetailState> {
   final IArticleRepository _repository;
 
   Future<void> _onOpened(
-      ArticleDetailOpened event,
-      Emitter<ArticleDetailState> emit,
-      ) async {
+    ArticleDetailOpened event,
+    Emitter<ArticleDetailState> emit,
+  ) async {
     final article = await _repository.getArticle(event.pmid);
     if (article == null) {
       emit(ArticleDetailNotFound(event.pmid));

@@ -24,7 +24,7 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) =>
-            ArticleListCubit(context.read<IArticleRepository>())..load(),
+                ArticleListCubit(context.read<IArticleRepository>())..load(),
           ),
           BlocProvider(create: (_) => ThemeCubit()),
           BlocProvider(create: (_) => LocaleCubit()),
@@ -34,7 +34,7 @@ class App extends StatelessWidget {
             builder: (context, locale) => MaterialApp.router(
               routerConfig: AppRouter.router,
               onGenerateTitle: (context) =>
-              AppLocalizations.of(context).appTitle,
+                  AppLocalizations.of(context).appTitle,
               debugShowCheckedModeBanner: false,
               theme: AppTheme.light,
               darkTheme: AppTheme.dark,

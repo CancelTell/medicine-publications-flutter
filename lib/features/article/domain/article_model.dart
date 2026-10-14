@@ -19,4 +19,3 @@ final class ArticleModel {
   final DateTime publishedAt;
   final List<int> relatedIds;
 }
-
