@@ -21,5 +21,6 @@
   "typeResearch": "Research article",
   "typeReview": "Review",
   "typeRandTrial": "Randomized trial",
-  "typeValidStudy": "Validation study"
+  "typeValidStudy": "Validation study",
+  "articleByline": "{authors} · {year}"
 }

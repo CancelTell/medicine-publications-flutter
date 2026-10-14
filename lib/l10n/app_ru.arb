@@ -21,6 +21,7 @@
       }
     }
   },
+
   "searchNothingFound": "По запросу «{query}» ничего не найдено",
   "@searchNothingFound": {
     "placeholders": {
@@ -78,5 +79,14 @@
   },
   "typeReview": "Обзор",
   "typeRandTrial": "Рандомизированное исследование",
-  "typeValidStudy": "Валидационное исследование"
+  "typeValidStudy": "Валидационное исследование",
+
+  "articleByline": "{authors} · {year}",
+   "@articleByline": {
+     "description": "Строка под названием в карточке: авторы и год",
+     "placeholders": {
+     "authors": { "type": "String" },
+     "year": { "type": "String" }
+     }
+   }
 }

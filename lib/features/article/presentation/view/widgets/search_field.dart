@@ -44,7 +44,9 @@ class _SearchFieldState extends State<SearchField> {
       decoration: InputDecoration(
         labelText: l10n.searchHint,
         prefixIcon: const Icon(Icons.search),
-        border: const OutlineInputBorder(),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+        ),
         suffixIcon: IconButton(
           tooltip: l10n.actionClearSearch,
           icon: const Icon(Icons.clear),
