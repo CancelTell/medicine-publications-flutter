@@ -12,19 +12,16 @@ class ArticleDetailBloc extends Bloc<ArticleDetailEvent, ArticleDetailState> {
   final IArticleRepository _repository;
 
   Future<void> _onOpened(
-    ArticleDetailOpened event,
-    Emitter<ArticleDetailState> emit,
-  ) async {
+      ArticleDetailOpened event,
+      Emitter<ArticleDetailState> emit,
+      ) async {
     final article = await _repository.getArticle(event.pmid);
     if (article == null) {
       emit(ArticleDetailNotFound(event.pmid));
       return;
     }
-    final related = <ArticleModel>[];
-    for (final id in article.relatedIds) {
-      final item = await _repository.getArticle(id);
-      if (item != null) related.add(item);
-    }
+    final found = await Future.wait(article.relatedIds.map(_repository.getArticle));
+    final related = found.whereType<ArticleModel>().toList();
     emit(ArticleDetailLoaded(article, related: related));
   }
 }
