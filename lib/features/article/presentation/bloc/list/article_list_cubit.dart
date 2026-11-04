@@ -12,10 +12,13 @@ class ArticleListCubit extends Cubit<ArticleListState> {
 
   final IArticleRepository _repository;
 
+  static const int _pageSize = 20;
   static const Duration _searchDelay = Duration(milliseconds: 400);
 
   Timer? _searchTimer;
+
   int _requestId = 0;
+  int _nextOffset = 0;
 
   Future<void> load() => _start('');
 
@@ -51,10 +54,15 @@ class ArticleListCubit extends Cubit<ArticleListState> {
   Future<void> _fetch(String query, int requestId) async {
     try {
       final articles = query.isEmpty
-          ? await _repository.getArticles()
+          ? await _repository.getArticles(
+        offset: 0,
+        limit: _pageSize,
+      )
           : await _repository.searchArticles(query);
 
-      if (isClosed || requestId != _requestId) return;
+      if (!_isCurrent(requestId)) return;
+
+      _nextOffset = articles.length;
 
       if (articles.isEmpty && query.isNotEmpty) {
         emit(ArticleListNotFound(query: query));
@@ -64,11 +72,12 @@ class ArticleListCubit extends Cubit<ArticleListState> {
       emit(
         ArticleListLoaded(
           query: query,
-          articles: List<ArticleModel>.unmodifiable(articles),
+          articles: _withoutDuplicates(articles),
+          hasMore: query.isEmpty && articles.length == _pageSize,
         ),
       );
     } on LoadException catch (error) {
-      if (isClosed || requestId != _requestId) return;
+      if (!_isCurrent(requestId)) return;
 
       emit(
         ArticleListFailure(
@@ -77,6 +86,78 @@ class ArticleListCubit extends Cubit<ArticleListState> {
         ),
       );
     }
+  }
+
+  Future<void> loadMore({bool retry = false}) async {
+    if (isClosed) return;
+
+    final current = state;
+
+    if (current is! ArticleListLoaded ||
+        current.query.isNotEmpty ||
+        !current.hasMore ||
+        current.isLoadingMore ||
+        (current.loadMoreError != null && !retry)) {
+      return;
+    }
+
+    final requestId = _requestId;
+    final offset = _nextOffset;
+
+    emit(
+      ArticleListLoaded(
+        query: current.query,
+        articles: current.articles,
+        hasMore: current.hasMore,
+        isLoadingMore: true,
+      ),
+    );
+
+    try {
+      final next = await _repository.getArticles(
+        offset: offset,
+        limit: _pageSize,
+      );
+
+      if (!_isCurrent(requestId)) return;
+
+      _nextOffset = offset + next.length;
+
+      emit(
+        ArticleListLoaded(
+          query: current.query,
+          articles: _withoutDuplicates([
+            ...current.articles,
+            ...next,
+          ]),
+          hasMore: next.length == _pageSize,
+        ),
+      );
+    } on LoadException catch (error) {
+      if (!_isCurrent(requestId)) return;
+
+      emit(
+        ArticleListLoaded(
+          query: current.query,
+          articles: current.articles,
+          hasMore: current.hasMore,
+          loadMoreError: error,
+        ),
+      );
+    }
+  }
+
+  bool _isCurrent(int requestId) =>
+      !isClosed && requestId == _requestId;
+
+  List<ArticleModel> _withoutDuplicates(
+      Iterable<ArticleModel> articles,
+      ) {
+    final seen = <int>{};
+
+    return List<ArticleModel>.unmodifiable(
+      articles.where((article) => seen.add(article.pmid)),
+    );
   }
 
   @override

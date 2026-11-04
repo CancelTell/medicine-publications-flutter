@@ -15,9 +15,15 @@ final class ArticleListLoaded extends ArticleListState {
   const ArticleListLoaded({
     required super.query,
     required this.articles,
+    required this.hasMore,
+    this.isLoadingMore = false,
+    this.loadMoreError,
   });
 
   final List<ArticleModel> articles;
+  final bool hasMore;
+  final bool isLoadingMore;
+  final LoadException? loadMoreError;
 }
 
 final class ArticleListNotFound extends ArticleListState {

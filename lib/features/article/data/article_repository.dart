@@ -11,11 +11,18 @@ final class ArticleRepository implements IArticleRepository {
   final IArticleDataSource _dataSource;
 
   static const String _defaultQuery = 'medicine';
-  static const int _pageSize = 20;
+  static const int _searchLimit = 20;
 
   @override
-  Future<List<ArticleModel>> getArticles() =>
-      _search(_defaultQuery);
+  Future<List<ArticleModel>> getArticles({
+    int offset = 0,
+    int limit = 20,
+  }) =>
+      _search(
+        _defaultQuery,
+        offset: offset,
+        limit: limit,
+      );
 
   @override
   Future<List<ArticleModel>> searchArticles(String query) {
@@ -25,13 +32,22 @@ final class ArticleRepository implements IArticleRepository {
       return getArticles();
     }
 
-    return _search(normalized);
+    return _search(
+      normalized,
+      offset: 0,
+      limit: _searchLimit,
+    );
   }
 
-  Future<List<ArticleModel>> _search(String query) async {
+  Future<List<ArticleModel>> _search(
+      String query, {
+        required int offset,
+        required int limit,
+      }) async {
     final response = await _dataSource.searchArticles(
       query: query,
-      limit: _pageSize,
+      offset: offset,
+      limit: limit,
     );
 
     final ids = response.result.ids;
