@@ -1,3 +1,4 @@
+import 'package:pubmed_catalog/common/network/load_exception.dart';
 import 'package:pubmed_catalog/features/article/domain/article_model.dart';
 
 sealed class ArticleDetailState {
@@ -9,7 +10,10 @@ final class ArticleDetailLoading extends ArticleDetailState {
 }
 
 final class ArticleDetailLoaded extends ArticleDetailState {
-  const ArticleDetailLoaded(this.article, {required this.related});
+  const ArticleDetailLoaded(
+      this.article, {
+        required this.related,
+      });
 
   final ArticleModel article;
   final List<ArticleModel> related;
@@ -19,4 +23,11 @@ final class ArticleDetailNotFound extends ArticleDetailState {
   const ArticleDetailNotFound(this.pmid);
 
   final int pmid;
+}
+
+final class ArticleDetailFailure extends ArticleDetailState {
+  const ArticleDetailFailure(this.pmid, this.error);
+
+  final int pmid;
+  final LoadException error;
 }
