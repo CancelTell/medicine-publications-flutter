@@ -15,12 +15,18 @@
   "sectionDescription": "Description",
   "sectionAuthors": "Authors",
   "sectionRelated": "Related articles",
-  "relatedEmpty": "No related articles in the catalog",
-  "detailNotFound": "No article with PMID {pmid} in the catalog",
+  "relatedEmpty": "No related articles found",
+  "detailNotFound": "Article with PMID {pmid} not found",
   "pageNotFound": "No such page",
   "typeResearch": "Research article",
   "typeReview": "Review",
   "typeRandTrial": "Randomized trial",
   "typeValidStudy": "Validation study",
-  "articleByline": "{authors} · {year}"
+  "articleByline": "{authors} · {year}",
+  "actionRetry": "Retry",
+  "errorNoConnection": "Unable to connect to the server. Check your internet connection.",
+  "errorTimeout": "The server did not respond in time. Please try again.",
+  "errorNotFound": "The requested resource was not found. Check the server address.",
+  "errorServer": "Server error: {statusCode}. Please try again later.",
+  "errorBadResponse": "Unable to process the server response. Please try again."
 }
