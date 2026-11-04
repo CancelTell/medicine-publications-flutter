@@ -31,7 +31,7 @@ abstract final class DioClient {
 }
 
 final class _RequestSpacingInterceptor extends QueuedInterceptor {
-  static const Duration _interval = Duration(milliseconds: 400);
+  static const Duration _interval = Duration(seconds: 1);
 
   final Stopwatch _clock = Stopwatch()..start();
 
