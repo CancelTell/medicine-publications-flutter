@@ -3,6 +3,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pubmed_catalog/common/widgets/app_scaffold.dart';
+import 'package:pubmed_catalog/common/widgets/load_error_view.dart';
 import 'package:pubmed_catalog/features/article/domain/article_model.dart';
 import 'package:pubmed_catalog/features/article/presentation/bloc/list/article_list_cubit.dart';
 import 'package:pubmed_catalog/features/article/presentation/bloc/list/article_list_state.dart';
@@ -13,11 +14,13 @@ import 'package:pubmed_catalog/l10n/app_localizations.dart';
 
 class ArticleListScreen extends StatelessWidget {
   const ArticleListScreen({super.key});
+
   static const double _maxContentWidth = 840;
 
   @override
   Widget build(BuildContext context) {
     final cubit = context.read<ArticleListCubit>();
+
     return AppScaffold(
       body: LayoutBuilder(
         builder: (context, constraints) {
@@ -25,6 +28,7 @@ class ArticleListScreen extends StatelessWidget {
             16.0,
             (constraints.maxWidth - _maxContentWidth) / 2,
           );
+
           return Column(
             children: [
               Padding(
@@ -43,6 +47,12 @@ class ArticleListScreen extends StatelessWidget {
                     ArticleListNotFound(:final query) => NothingFound(
                       query: query,
                     ),
+                    ArticleListFailure(:final error) => Center(
+                      child: LoadErrorView(
+                        error: error,
+                        onRetry: cubit.retry,
+                      ),
+                    ),
                     ArticleListLoaded(:final articles) => _ArticleList(
                       articles: articles,
                       side: side,
@@ -59,7 +69,10 @@ class ArticleListScreen extends StatelessWidget {
 }
 
 class _ArticleList extends StatelessWidget {
-  const _ArticleList({required this.articles, required this.side});
+  const _ArticleList({
+    required this.articles,
+    required this.side,
+  });
 
   final List<ArticleModel> articles;
   final double side;
@@ -67,6 +80,7 @@ class _ArticleList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
