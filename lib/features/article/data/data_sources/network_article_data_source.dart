@@ -20,11 +20,7 @@ final class NetworkArticleDataSource implements IArticleDataSource {
     int offset = 0,
     int limit = 20,
   }) => _guard(
-        () => _api.searchArticles(
-      query: query,
-      offset: offset,
-      limit: limit,
-    ),
+    () => _api.searchArticles(query: query, offset: offset, limit: limit),
   );
 
   @override
@@ -60,13 +56,12 @@ final class NetworkArticleDataSource implements IArticleDataSource {
     DioExceptionType.transformTimeout => const TimeoutLoadException(),
 
     DioExceptionType.badResponse when error.response?.statusCode == 404 =>
-    const NotFoundException(),
+      const NotFoundException(),
 
-    DioExceptionType.badResponse =>
-        ServerException(error.response?.statusCode),
+    DioExceptionType.badResponse => ServerException(error.response?.statusCode),
 
     DioExceptionType.unknown when error.error is FormatException =>
-    const BadResponseException(),
+      const BadResponseException(),
 
     DioExceptionType.connectionError ||
     DioExceptionType.badCertificate ||

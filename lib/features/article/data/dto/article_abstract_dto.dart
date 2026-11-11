@@ -1,10 +1,7 @@
 import 'package:xml/xml.dart';
 
 final class ArticleAbstractDto {
-  const ArticleAbstractDto({
-    required this.pmid,
-    required this.text,
-  });
+  const ArticleAbstractDto({required this.pmid, required this.text});
 
   final String? pmid;
   final String text;
@@ -16,13 +13,9 @@ final class ArticleAbstractDto {
       throw const FormatException('Некорректный ответ EFetch');
     }
 
-    final citation = document
-        .findAllElements('MedlineCitation')
-        .firstOrNull;
+    final citation = document.findAllElements('MedlineCitation').firstOrNull;
 
-    final book = document
-        .findAllElements('BookDocument')
-        .firstOrNull;
+    final book = document.findAllElements('BookDocument').firstOrNull;
 
     final record = citation ?? book;
 
@@ -39,20 +32,17 @@ final class ArticleAbstractDto {
     final paragraphs = record
         .findAllElements('AbstractText')
         .map((element) {
-      final label = element.getAttribute('Label');
-      final text = element.innerText.trim();
+          final label = element.getAttribute('Label');
+          final text = element.innerText.trim();
 
-      if (text.isEmpty) return '';
-      if (label == null || label.isEmpty) return text;
+          if (text.isEmpty) return '';
+          if (label == null || label.isEmpty) return text;
 
-      return '$label: $text';
-    })
+          return '$label: $text';
+        })
         .where((text) => text.isNotEmpty)
         .toList();
 
-    return ArticleAbstractDto(
-      pmid: pmid,
-      text: paragraphs.join('\n\n'),
-    );
+    return ArticleAbstractDto(pmid: pmid, text: paragraphs.join('\n\n'));
   }
 }

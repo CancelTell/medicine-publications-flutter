@@ -39,9 +39,9 @@ final class _RequestSpacingInterceptor extends QueuedInterceptor {
 
   @override
   void onRequest(
-      RequestOptions options,
-      RequestInterceptorHandler handler,
-      ) async {
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final lastStart = _lastStart;
 
     if (lastStart != null) {

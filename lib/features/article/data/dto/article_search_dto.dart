@@ -15,10 +15,7 @@ class ArticleSearchResponseDto {
 
 @JsonSerializable()
 class ArticleSearchResultDto {
-  const ArticleSearchResultDto({
-    required this.count,
-    required this.ids,
-  });
+  const ArticleSearchResultDto({required this.count, required this.ids});
 
   factory ArticleSearchResultDto.fromJson(Map<String, dynamic> json) =>
       _$ArticleSearchResultDtoFromJson(json);

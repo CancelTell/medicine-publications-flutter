@@ -10,10 +10,7 @@ final class ArticleDetailLoading extends ArticleDetailState {
 }
 
 final class ArticleDetailLoaded extends ArticleDetailState {
-  const ArticleDetailLoaded(
-      this.article, {
-        required this.related,
-      });
+  const ArticleDetailLoaded(this.article, {required this.related});
 
   final ArticleModel article;
   final List<ArticleModel> related;

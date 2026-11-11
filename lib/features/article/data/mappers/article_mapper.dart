@@ -9,9 +9,7 @@ extension ArticleDtoMapper on ArticleDto {
     List<int> relatedIds = const [],
   }) {
     final id = int.tryParse(pmid);
-    final date = DateTime.tryParse(
-      sortPubDate.replaceAll('/', '-'),
-    );
+    final date = DateTime.tryParse(sortPubDate.replaceAll('/', '-'));
 
     if (id == null || date == null) {
       throw const BadResponseException();
@@ -20,9 +18,7 @@ extension ArticleDtoMapper on ArticleDto {
     return ArticleModel(
       pmid: id,
       title: title,
-      authors: [
-        for (final author in authors) author.name,
-      ],
+      authors: [for (final author in authors) author.name],
       description: description,
       type: _articleType(pubTypes),
       publishedAt: date,

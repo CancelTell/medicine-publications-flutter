@@ -3,11 +3,7 @@ import 'package:pubmed_catalog/common/network/load_exception.dart';
 import 'package:pubmed_catalog/l10n/app_localizations.dart';
 
 class LoadErrorView extends StatelessWidget {
-  const LoadErrorView({
-    super.key,
-    required this.error,
-    required this.onRetry,
-  });
+  const LoadErrorView({super.key, required this.error, required this.onRetry});
 
   final LoadException error;
   final VoidCallback onRetry;
@@ -20,8 +16,9 @@ class LoadErrorView extends StatelessWidget {
       NoConnectionException() => l10n.errorNoConnection,
       TimeoutLoadException() => l10n.errorTimeout,
       NotFoundException() => l10n.errorNotFound,
-      ServerException(:final statusCode) =>
-          l10n.errorServer(statusCode?.toString() ?? '?'),
+      ServerException(:final statusCode) => l10n.errorServer(
+        statusCode?.toString() ?? '?',
+      ),
       BadResponseException() => l10n.errorBadResponse,
     };
 
@@ -31,14 +28,8 @@ class LoadErrorView extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         spacing: 12,
         children: [
-          Text(
-            message,
-            textAlign: TextAlign.center,
-          ),
-          FilledButton.tonal(
-            onPressed: onRetry,
-            child: Text(l10n.actionRetry),
-          ),
+          Text(message, textAlign: TextAlign.center),
+          FilledButton.tonal(onPressed: onRetry, child: Text(l10n.actionRetry)),
         ],
       ),
     );

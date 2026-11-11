@@ -33,11 +33,7 @@ final class ArticleApi {
 
     final json = await _getJson(
       'esummary.fcgi',
-      queryParameters: {
-        'db': 'pubmed',
-        'retmode': 'json',
-        'id': ids.join(','),
-      },
+      queryParameters: {'db': 'pubmed', 'retmode': 'json', 'id': ids.join(',')},
     );
 
     final result = json['result'];
@@ -89,11 +85,7 @@ final class ArticleApi {
   Future<ArticleAbstractDto> getAbstract(String pmid) async {
     final response = await _dio.get<String>(
       'efetch.fcgi',
-      queryParameters: {
-        'db': 'pubmed',
-        'retmode': 'xml',
-        'id': pmid,
-      },
+      queryParameters: {'db': 'pubmed', 'retmode': 'xml', 'id': pmid},
       options: Options(responseType: ResponseType.plain),
     );
 
@@ -107,15 +99,14 @@ final class ArticleApi {
   }
 
   Future<Map<String, dynamic>> _getJson(
-      String path, {
-        Map<String, Object>? queryParameters,
-      }) async {
+    String path, {
+    Map<String, Object>? queryParameters,
+  }) async {
     final response = await _dio.get<Map<String, dynamic>>(
       path,
       queryParameters: queryParameters,
     );
 
-    return response.data ??
-        (throw const FormatException('Пустой ответ'));
+    return response.data ?? (throw const FormatException('Пустой ответ'));
   }
 }

@@ -31,10 +31,7 @@ final class ArticleListNotFound extends ArticleListState {
 }
 
 final class ArticleListFailure extends ArticleListState {
-  const ArticleListFailure({
-    required super.query,
-    required this.error,
-  });
+  const ArticleListFailure({required super.query, required this.error});
 
   final LoadException error;
 }

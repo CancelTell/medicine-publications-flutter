@@ -26,10 +26,7 @@ class ArticleLinkSetDto {
 
 @JsonSerializable()
 class ArticleLinkDatabaseDto {
-  const ArticleLinkDatabaseDto({
-    required this.linkName,
-    required this.ids,
-  });
+  const ArticleLinkDatabaseDto({required this.linkName, required this.ids});
 
   factory ArticleLinkDatabaseDto.fromJson(Map<String, dynamic> json) =>
       _$ArticleLinkDatabaseDtoFromJson(json);

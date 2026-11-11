@@ -2,10 +2,7 @@ import 'package:pubmed_catalog/common/network/load_exception.dart';
 import 'package:pubmed_catalog/features/article/data/dto/article_links_dto.dart';
 
 extension ArticleLinksDtoMapper on ArticleLinksDto {
-  List<int> relatedIds({
-    required int currentPmid,
-    int limit = 3,
-  }) {
+  List<int> relatedIds({required int currentPmid, int limit = 3}) {
     final ids = <int>{};
 
     for (final set in linkSets) {

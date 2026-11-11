@@ -47,10 +47,7 @@ class ArticleListScreen extends StatelessWidget {
                       query: query,
                     ),
                     ArticleListFailure(:final error) => Center(
-                      child: LoadErrorView(
-                        error: error,
-                        onRetry: cubit.retry,
-                      ),
+                      child: LoadErrorView(error: error, onRetry: cubit.retry),
                     ),
                     ArticleListLoaded() => _ArticleList(
                       key: ValueKey(state.query),
@@ -69,11 +66,7 @@ class ArticleListScreen extends StatelessWidget {
 }
 
 class _ArticleList extends StatefulWidget {
-  const _ArticleList({
-    super.key,
-    required this.state,
-    required this.side,
-  });
+  const _ArticleList({super.key, required this.state, required this.side});
 
   final ArticleListLoaded state;
   final double side;
@@ -126,8 +119,7 @@ class _ArticleListState extends State<_ArticleList> {
     final side = widget.side;
     final theme = Theme.of(context);
 
-    final showFooter =
-        state.isLoadingMore || state.loadMoreError != null;
+    final showFooter = state.isLoadingMore || state.loadMoreError != null;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -135,9 +127,7 @@ class _ArticleListState extends State<_ArticleList> {
         Padding(
           padding: EdgeInsets.symmetric(horizontal: side),
           child: Text(
-            AppLocalizations.of(context).listFound(
-              state.articles.length,
-            ),
+            AppLocalizations.of(context).listFound(state.articles.length),
             style: theme.textTheme.labelLarge?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -145,19 +135,14 @@ class _ArticleListState extends State<_ArticleList> {
         ),
         Expanded(
           child: ListView.separated(
-            key: PageStorageKey<String>(
-              'article-list-${state.query}',
-            ),
+            key: PageStorageKey<String>('article-list-${state.query}'),
             controller: _controller,
             padding: EdgeInsets.fromLTRB(side, 12, side, 16),
-            itemCount:
-            state.articles.length + (showFooter ? 1 : 0),
+            itemCount: state.articles.length + (showFooter ? 1 : 0),
             separatorBuilder: (_, _) => const SizedBox(height: 12),
             itemBuilder: (context, index) {
               if (index < state.articles.length) {
-                return ArticleCard(
-                  article: state.articles[index],
-                );
+                return ArticleCard(article: state.articles[index]);
               }
 
               return _PaginationFooter(state: state);
@@ -181,17 +166,15 @@ class _PaginationFooter extends StatelessWidget {
     return Center(
       child: error == null
           ? const Padding(
-        padding: EdgeInsets.all(16),
-        child: CircularProgressIndicator(),
-      )
+              padding: EdgeInsets.all(16),
+              child: CircularProgressIndicator(),
+            )
           : LoadErrorView(
-        error: error,
-        onRetry: () {
-          context.read<ArticleListCubit>().loadMore(
-            retry: true,
-          );
-        },
-      ),
+              error: error,
+              onRetry: () {
+                context.read<ArticleListCubit>().loadMore(retry: true);
+              },
+            ),
     );
   }
 }

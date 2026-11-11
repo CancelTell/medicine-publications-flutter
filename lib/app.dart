@@ -21,9 +21,7 @@ class App extends StatelessWidget {
       providers: [
         RepositoryProvider<IArticleRepository>(
           create: (_) => ArticleRepository(
-            NetworkArticleDataSource(
-              ArticleApi(DioClient.create()),
-            ),
+            NetworkArticleDataSource(ArticleApi(DioClient.create())),
           ),
         ),
       ],
@@ -31,31 +29,26 @@ class App extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) =>
-            ArticleListCubit(
-              context.read<IArticleRepository>(),
-            )..load(),
+                ArticleListCubit(context.read<IArticleRepository>())..load(),
           ),
           BlocProvider(create: (_) => ThemeCubit()),
           BlocProvider(create: (_) => LocaleCubit()),
         ],
         child: BlocBuilder<ThemeCubit, ThemeMode>(
-          builder: (context, themeMode) =>
-              BlocBuilder<LocaleCubit, Locale>(
-                builder: (context, locale) => MaterialApp.router(
-                  routerConfig: AppRouter.router,
-                  onGenerateTitle: (context) =>
+          builder: (context, themeMode) => BlocBuilder<LocaleCubit, Locale>(
+            builder: (context, locale) => MaterialApp.router(
+              routerConfig: AppRouter.router,
+              onGenerateTitle: (context) =>
                   AppLocalizations.of(context).appTitle,
-                  debugShowCheckedModeBanner: false,
-                  theme: AppTheme.light,
-                  darkTheme: AppTheme.dark,
-                  themeMode: themeMode,
-                  locale: locale,
-                  localizationsDelegates:
-                  AppLocalizations.localizationsDelegates,
-                  supportedLocales:
-                  AppLocalizations.supportedLocales,
-                ),
-              ),
+              debugShowCheckedModeBanner: false,
+              theme: AppTheme.light,
+              darkTheme: AppTheme.dark,
+              themeMode: themeMode,
+              locale: locale,
+              localizationsDelegates: AppLocalizations.localizationsDelegates,
+              supportedLocales: AppLocalizations.supportedLocales,
+            ),
+          ),
         ),
       ),
     );

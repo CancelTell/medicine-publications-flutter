@@ -7,8 +7,7 @@ import 'package:pubmed_catalog/features/article/domain/i_article_repository.dart
 import 'package:pubmed_catalog/features/article/presentation/bloc/list/article_list_state.dart';
 
 class ArticleListCubit extends Cubit<ArticleListState> {
-  ArticleListCubit(this._repository)
-      : super(const ArticleListLoading());
+  ArticleListCubit(this._repository) : super(const ArticleListLoading());
 
   final IArticleRepository _repository;
 
@@ -54,10 +53,7 @@ class ArticleListCubit extends Cubit<ArticleListState> {
   Future<void> _fetch(String query, int requestId) async {
     try {
       final articles = query.isEmpty
-          ? await _repository.getArticles(
-        offset: 0,
-        limit: _pageSize,
-      )
+          ? await _repository.getArticles(offset: 0, limit: _pageSize)
           : await _repository.searchArticles(query);
 
       if (!_isCurrent(requestId)) return;
@@ -79,12 +75,7 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     } on LoadException catch (error) {
       if (!_isCurrent(requestId)) return;
 
-      emit(
-        ArticleListFailure(
-          query: query,
-          error: error,
-        ),
-      );
+      emit(ArticleListFailure(query: query, error: error));
     }
   }
 
@@ -126,10 +117,7 @@ class ArticleListCubit extends Cubit<ArticleListState> {
       emit(
         ArticleListLoaded(
           query: current.query,
-          articles: _withoutDuplicates([
-            ...current.articles,
-            ...next,
-          ]),
+          articles: _withoutDuplicates([...current.articles, ...next]),
           hasMore: next.length == _pageSize,
         ),
       );
@@ -147,12 +135,9 @@ class ArticleListCubit extends Cubit<ArticleListState> {
     }
   }
 
-  bool _isCurrent(int requestId) =>
-      !isClosed && requestId == _requestId;
+  bool _isCurrent(int requestId) => !isClosed && requestId == _requestId;
 
-  List<ArticleModel> _withoutDuplicates(
-      Iterable<ArticleModel> articles,
-      ) {
+  List<ArticleModel> _withoutDuplicates(Iterable<ArticleModel> articles) {
     final seen = <int>{};
 
     return List<ArticleModel>.unmodifiable(

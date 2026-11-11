@@ -16,10 +16,7 @@ import 'package:pubmed_catalog/features/article/presentation/view/widgets/type_c
 import 'package:pubmed_catalog/l10n/app_localizations.dart';
 
 class ArticleDetailScreen extends StatelessWidget {
-  const ArticleDetailScreen({
-    super.key,
-    required this.pmid,
-  });
+  const ArticleDetailScreen({super.key, required this.pmid});
 
   final int pmid;
 
@@ -27,9 +24,8 @@ class ArticleDetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-      ArticleDetailBloc(
-        context.read<IArticleRepository>(),
-      )..add(ArticleDetailOpened(pmid)),
+          ArticleDetailBloc(context.read<IArticleRepository>())
+            ..add(ArticleDetailOpened(pmid)),
       child: AppScaffold(
         body: BlocBuilder<ArticleDetailBloc, ArticleDetailState>(
           builder: (context, state) => switch (state) {
@@ -40,34 +36,21 @@ class ArticleDetailScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.all(24),
                 child: Text(
-                  AppLocalizations.of(context).detailNotFound(
-                    pmid.toString(),
-                  ),
+                  AppLocalizations.of(context).detailNotFound(pmid.toString()),
                   textAlign: TextAlign.center,
                 ),
               ),
             ),
-            ArticleDetailFailure(
-                :final pmid,
-                :final error,
-            ) =>
-                Center(
-                  child: LoadErrorView(
-                    error: error,
-                    onRetry: () =>
-                        context.read<ArticleDetailBloc>().add(
-                          ArticleDetailRetried(pmid),
-                        ),
-                  ),
+            ArticleDetailFailure(:final pmid, :final error) => Center(
+              child: LoadErrorView(
+                error: error,
+                onRetry: () => context.read<ArticleDetailBloc>().add(
+                  ArticleDetailRetried(pmid),
                 ),
-            ArticleDetailLoaded(
-                :final article,
-                :final related,
-            ) =>
-                _DetailContent(
-                  article: article,
-                  related: related,
-                ),
+              ),
+            ),
+            ArticleDetailLoaded(:final article, :final related) =>
+              _DetailContent(article: article, related: related),
           },
         ),
       ),
@@ -76,10 +59,7 @@ class ArticleDetailScreen extends StatelessWidget {
 }
 
 class _DetailContent extends StatelessWidget {
-  const _DetailContent({
-    required this.article,
-    required this.related,
-  });
+  const _DetailContent({required this.article, required this.related});
 
   final ArticleModel article;
   final List<ArticleModel> related;
@@ -98,10 +78,7 @@ class _DetailContent extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             spacing: 12,
             children: [
-              ArticleCover(
-                article: article,
-                size: 96,
-              ),
+              ArticleCover(article: article, size: 96),
               TypeChip(type: article.type),
               SelectableText(
                 article.title,
@@ -110,16 +87,10 @@ class _DetailContent extends StatelessWidget {
               ArticleFacts(article: article),
               if (article.description.isNotEmpty) ...[
                 Section(title: l10n.sectionDescription),
-                Text(
-                  article.description,
-                  style: theme.textTheme.bodyLarge,
-                ),
+                Text(article.description, style: theme.textTheme.bodyLarge),
               ],
               Section(title: l10n.sectionAuthors),
-              Text(
-                article.authorsFull,
-                style: theme.textTheme.bodyLarge,
-              ),
+              Text(article.authorsFull, style: theme.textTheme.bodyLarge),
               Section(title: l10n.sectionRelated),
               if (related.isEmpty)
                 Text(
@@ -128,8 +99,7 @@ class _DetailContent extends StatelessWidget {
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
                 ),
-              for (final item in related)
-                ArticleCard(article: item),
+              for (final item in related) ArticleCard(article: item),
             ],
           ),
         ),

@@ -39,7 +39,10 @@ class ArticleCard extends StatelessWidget {
                   maxLines: 3,
                   overflow: TextOverflow.ellipsis,
                 ),
-                Text(l10n.articleByline(article.authorsShort(l10n), article.year), style: secondary),
+                Text(
+                  l10n.articleByline(article.authorsShort(l10n), article.year),
+                  style: secondary,
+                ),
               ],
             ),
           ),
