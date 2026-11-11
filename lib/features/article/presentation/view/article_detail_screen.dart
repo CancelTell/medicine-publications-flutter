@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pubmed_catalog/common/widgets/app_scaffold.dart';
+import 'package:pubmed_catalog/common/widgets/load_error_view.dart';
 import 'package:pubmed_catalog/features/article/domain/article_model.dart';
 import 'package:pubmed_catalog/features/article/domain/i_article_repository.dart';
+import 'package:pubmed_catalog/features/article/presentation/bloc/detail/article_detail_bloc.dart';
 import 'package:pubmed_catalog/features/article/presentation/bloc/detail/article_detail_event.dart';
 import 'package:pubmed_catalog/features/article/presentation/bloc/detail/article_detail_state.dart';
 import 'package:pubmed_catalog/features/article/presentation/utils/article_format.dart';
@@ -12,8 +14,6 @@ import 'package:pubmed_catalog/features/article/presentation/view/widgets/articl
 import 'package:pubmed_catalog/features/article/presentation/view/widgets/section.dart';
 import 'package:pubmed_catalog/features/article/presentation/view/widgets/type_chip.dart';
 import 'package:pubmed_catalog/l10n/app_localizations.dart';
-
-import '../bloc/detail/article_detail_bloc.dart';
 
 class ArticleDetailScreen extends StatelessWidget {
   const ArticleDetailScreen({super.key, required this.pmid});
@@ -33,8 +33,20 @@ class ArticleDetailScreen extends StatelessWidget {
               child: CircularProgressIndicator(),
             ),
             ArticleDetailNotFound(:final pmid) => Center(
-              child: Text(
-                AppLocalizations.of(context).detailNotFound(pmid.toString()),
+              child: Padding(
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  AppLocalizations.of(context).detailNotFound(pmid.toString()),
+                  textAlign: TextAlign.center,
+                ),
+              ),
+            ),
+            ArticleDetailFailure(:final pmid, :final error) => Center(
+              child: LoadErrorView(
+                error: error,
+                onRetry: () => context.read<ArticleDetailBloc>().add(
+                  ArticleDetailRetried(pmid),
+                ),
               ),
             ),
             ArticleDetailLoaded(:final article, :final related) =>
@@ -56,6 +68,7 @@ class _DetailContent extends StatelessWidget {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context);
     final theme = Theme.of(context);
+
     return SingleChildScrollView(
       padding: const EdgeInsets.all(24),
       child: Center(
@@ -72,7 +85,10 @@ class _DetailContent extends StatelessWidget {
                 style: theme.textTheme.headlineSmall,
               ),
               ArticleFacts(article: article),
-              Text(article.description, style: theme.textTheme.bodyLarge),
+              if (article.description.isNotEmpty) ...[
+                Section(title: l10n.sectionDescription),
+                Text(article.description, style: theme.textTheme.bodyLarge),
+              ],
               Section(title: l10n.sectionAuthors),
               Text(article.authorsFull, style: theme.textTheme.bodyLarge),
               Section(title: l10n.sectionRelated),
