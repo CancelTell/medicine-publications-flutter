@@ -14,15 +14,8 @@ final class ArticleRepository implements IArticleRepository {
   static const int _searchLimit = 20;
 
   @override
-  Future<List<ArticleModel>> getArticles({
-    int offset = 0,
-    int limit = 20,
-  }) =>
-      _search(
-        _defaultQuery,
-        offset: offset,
-        limit: limit,
-      );
+  Future<List<ArticleModel>> getArticles({int offset = 0, int limit = 20}) =>
+      _search(_defaultQuery, offset: offset, limit: limit);
 
   @override
   Future<List<ArticleModel>> searchArticles(String query) {
@@ -32,18 +25,14 @@ final class ArticleRepository implements IArticleRepository {
       return getArticles();
     }
 
-    return _search(
-      normalized,
-      offset: 0,
-      limit: _searchLimit,
-    );
+    return _search(normalized, offset: 0, limit: _searchLimit);
   }
 
   Future<List<ArticleModel>> _search(
-      String query, {
-        required int offset,
-        required int limit,
-      }) async {
+    String query, {
+    required int offset,
+    required int limit,
+  }) async {
     final response = await _dataSource.searchArticles(
       query: query,
       offset: offset,
@@ -58,9 +47,20 @@ final class ArticleRepository implements IArticleRepository {
 
     final articles = await _dataSource.getArticles(ids);
 
-    return [
-      for (final article in articles) article.toModel(),
-    ];
+    return [for (final article in articles) article.toModel()];
+  }
+
+  @override
+  Future<List<ArticleModel>> getRelated(List<int> ids) async {
+    if (ids.isEmpty) {
+      return [];
+    }
+
+    final articles = await _dataSource.getArticles([
+      for (final id in ids) id.toString(),
+    ]);
+
+    return [for (final article in articles) article.toModel()];
   }
 
   @override
@@ -86,11 +86,18 @@ final class ArticleRepository implements IArticleRepository {
         throw const BadResponseException();
       }
 
-      final links = await _dataSource.getRelatedArticles(id);
+      var relatedIds = const <int>[];
+
+      try {
+        final links = await _dataSource.getRelatedArticles(id);
+        relatedIds = links.relatedIds(currentPmid: pmid);
+      } on LoadException {
+        relatedIds = const [];
+      }
 
       return articles.single.toModel(
         description: abstract.text,
-        relatedIds: links.relatedIds(currentPmid: pmid),
+        relatedIds: relatedIds,
       );
     } on NotFoundException {
       return null;
