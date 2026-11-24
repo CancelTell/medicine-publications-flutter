@@ -21,7 +21,6 @@
       }
     }
   },
-
   "searchNothingFound": "По запросу «{query}» ничего не найдено",
   "@searchNothingFound": {
     "placeholders": {
@@ -62,10 +61,10 @@
   "sectionDescription": "Описание",
   "sectionAuthors": "Авторы",
   "sectionRelated": "Связанные статьи",
-  "relatedEmpty": "Связанных статей в каталоге нет",
-  "detailNotFound": "Статьи с PMID {pmid} в каталоге нет",
+  "relatedEmpty": "Связанные статьи не найдены",
+  "detailNotFound": "Статья с PMID {pmid} не найдена",
   "@detailNotFound": {
-    "description": "PMID из адресной строки не нашёлся",
+    "description": "Статья с PMID из адресной строки не найдена",
     "placeholders": {
       "pmid": {
         "type": "String"
@@ -80,13 +79,30 @@
   "typeReview": "Обзор",
   "typeRandTrial": "Рандомизированное исследование",
   "typeValidStudy": "Валидационное исследование",
-
   "articleByline": "{authors} · {year}",
-   "@articleByline": {
-     "description": "Строка под названием в карточке: авторы и год",
-     "placeholders": {
-     "authors": { "type": "String" },
-     "year": { "type": "String" }
-     }
-   }
+  "@articleByline": {
+    "description": "Строка под названием в карточке: авторы и год",
+    "placeholders": {
+      "authors": {
+        "type": "String"
+      },
+      "year": {
+        "type": "String"
+      }
+    }
+  },
+  "actionRetry": "Повторить",
+  "errorNoConnection": "Не удалось подключиться к серверу. Проверьте соединение с интернетом.",
+  "errorTimeout": "Сервер не ответил вовремя. Попробуйте ещё раз.",
+  "errorNotFound": "Запрошенный ресурс не найден. Проверьте адрес сервера.",
+  "errorServer": "Ошибка сервера: {statusCode}. Попробуйте позже.",
+  "@errorServer": {
+    "description": "Ошибка HTTP с кодом ответа сервера",
+    "placeholders": {
+      "statusCode": {
+        "type": "String"
+      }
+    }
+  },
+  "errorBadResponse": "Не удалось обработать ответ сервера. Попробуйте ещё раз."
 }

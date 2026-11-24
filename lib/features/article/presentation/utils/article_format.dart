@@ -10,6 +10,7 @@ extension ArticleFormat on ArticleModel {
     if (authors.length == 1) return authors.first;
     return l10n.articleAuthorsShort(authors.first);
   }
+
   String get year => publishedAt.year.toString();
   String get authorsFull => authors.join(', ');
   String get displayPmid => pmid.toString();
